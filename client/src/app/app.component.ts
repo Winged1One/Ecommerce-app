@@ -3,26 +3,18 @@ import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from "./layout/header/header.component";
 import { HttpClient } from '@angular/common/http';
 import { Product } from './shared/models/product';
-import { Pagination } from './shared/models/Pagination';
+import { Pagination } from './shared/models/pagination';
+import { ShopService } from './core/services/shop.service';
+import { ShopComponent } from "./features/shop/shop.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [ HeaderComponent],
+  imports: [HeaderComponent, ShopComponent],
   //imports: [RouterOutlet, HeaderComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
-export class AppComponent implements OnInit {
-  baseUrl = 'https://localhost:5001/api/'
-  private http = inject(HttpClient)
+export class AppComponent{
   title = 'Skinet';
-  products: Product[] =[];
-  ngOnInit(): void {
-    this.http.get<Pagination<Product>>(this.baseUrl + 'genericproducts').subscribe({
-      next: response => this.products = response.data,
-      error: error => console.log(error),
-      complete: () => console.log('complete')
-    })
-  }
 }
