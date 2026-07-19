@@ -30,6 +30,9 @@ export class ShopService {
         params = params.append('pageIndex', shopParams.pageNumber);
         return this.http.get<Pagination<Product>>(this.baseUrl + 'genericproducts',{params})
     }
+    getProduct(id: number){
+        return this.http.get<Product>(this.baseUrl+ 'genericproducts/'+ id);
+    }
     getTypes(){
         if(this.types.length > 0) return;
         return this.http.get<string[]>(this.baseUrl+'genericproducts/types').subscribe({
